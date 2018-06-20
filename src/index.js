@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import { createStore } from 'redux'
+import myReducer from './reducers/index'
+import {Provider} from 'react-redux'
+
+let store = createStore(myReducer)
 
 let tasks = [
   {
@@ -22,5 +27,8 @@ let tasks = [
   }
 ]
 
-ReactDOM.render(<App tasks={tasks} />, document.getElementById('root'));
+ReactDOM.render(
+    <Provider store={store}>
+      <App tasks={tasks} />
+    </Provider>, document.getElementById('root'));
 registerServiceWorker();

@@ -3,6 +3,8 @@ import _ from '../../node_modules/lodash'
 
 import TaskItem from './TaskItem'
 
+import {connect} from 'react-redux'
+
 class TaskList extends Component {
   render() {
     const {tasks} = _.cloneDeep(this.props)
@@ -63,4 +65,10 @@ class TaskList extends Component {
   }
 }
 
-export default TaskList
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasks
+    }
+}
+
+export default  connect(mapStateToProps, null)(TaskList)

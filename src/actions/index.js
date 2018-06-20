@@ -1,4 +1,4 @@
-import * as types from './../constants/ActionTypes'
+import * as types from './../constants/actionTypes'
 
 export const listAll = () => {
     return {
@@ -7,10 +7,10 @@ export const listAll = () => {
     }
 }
 
-export const addTask = (task) => {
-    return {
-        type: types.ADD_TASK,
-        task
-    }
-
-}
+// export const addTask = (task) => {
+//     return {
+//         type: types.ADD_TASK,
+//         task
+//     }
+//
+// }
