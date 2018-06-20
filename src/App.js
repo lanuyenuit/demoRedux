@@ -6,13 +6,14 @@ import TaskForm from './components/TaskForm'
 import Control from './components/Control'
 import TaskList from './components/TaskList'
 import demo from './training/demo'
-
+import {connect} from "react-redux"
+import * as actions from './actions/index'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      tasks: _.cloneDeep(this.props.tasks),
+      // tasks: _.cloneDeep(this.props.tasks),
       task: {
         id: null,
         name: '',
@@ -70,8 +71,9 @@ class App extends Component {
   //click them button or chinh sua button to save changes
   addTask = (e) => {
     e.preventDefault()
+      console.log(e);
 
-    let {tasks, } = _.cloneDeep(this.state)
+    let {tasks} = _.cloneDeep(this.state)
     let {task} = _.clone(this.state)
 
     //save changes when add new
@@ -258,9 +260,6 @@ class App extends Component {
     })
   }
 
-  componentDidMount() {
-
-  }
 
   render() {
     let {tasks} = _.cloneDeep(this.state)
@@ -270,7 +269,7 @@ class App extends Component {
       <TaskForm
         onCloseForm={this.onCloseForm}
         handleInput={this.handleInput}
-        addTask={this.addTask}
+        addTask={this.props.addTask}
         task={task}
         isEditTask={isEditTask}
     /> : ''
@@ -316,7 +315,7 @@ class App extends Component {
             <div className='row mt-15'>
               <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
                 <TaskList
-                  // tasks={tasks}
+                  tasks={this.props.tasks}
                   deleteTask={(id)=>this.deleteTask(id)}
                   toggleEditForm={(id)=>this.toggleEditForm(id)}
                   filter={filter}
@@ -332,4 +331,19 @@ class App extends Component {
   }
 }
 
-export default App
+const mapStateToProps = (state) => {
+    return {
+        tasks: state.tasks
+    }
+}
+
+
+const mapDispathToProps = (dispatch, props) => {
+  return {
+      addTask: (task) => {
+          dispatch(actions.addTask(task))
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(App)

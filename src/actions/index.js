@@ -7,10 +7,10 @@ export const listAll = () => {
     }
 }
 
-// export const addTask = (task) => {
-//     return {
-//         type: types.ADD_TASK,
-//         task
-//     }
-//
-// }
+export const addTask = (task) => {
+    return {
+        type: types.ADD_TASK,
+        task
+    }
+
+}
