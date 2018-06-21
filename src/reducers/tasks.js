@@ -23,6 +23,7 @@ let myReducer = (state = initialState, action) => {
         case types.LIST_ALL:
             return state
         case types.ADD_TASK:
+            state.push(action.task)
             console.log(action);
             return state
         default: return state

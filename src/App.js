@@ -69,23 +69,20 @@ class App extends Component {
   }
 
   //click them button or chinh sua button to save changes
-  addTask = (e) => {
-    e.preventDefault()
-      console.log(e);
-
-    let {tasks} = _.cloneDeep(this.state)
+  addTask = () => {
+    // let {tasks} = _.cloneDeep(this.state)
     let {task} = _.clone(this.state)
 
     //save changes when add new
     if (!task.id) {
       task.id = Math.random().toString(16).substr(2, 9)
 
-      tasks.push(task)
+      this.props.addTask(task)
     }
 
     //save changes when edit
     else {
-      _.forEach(tasks, (obj)=> {
+      _.forEach(this.props.tasks, (obj)=> {
         if (obj.id === task.id) {
           _.merge(obj, task)
         }
@@ -93,11 +90,10 @@ class App extends Component {
     }
 
     this.setState({
-      tasks,
       task: {
         id: null,
         name: '',
-        status: '1'
+        status: task.status
       },
       isEditTask: false
     })
@@ -269,7 +265,7 @@ class App extends Component {
       <TaskForm
         onCloseForm={this.onCloseForm}
         handleInput={this.handleInput}
-        addTask={this.props.addTask}
+        addTask={this.addTask}
         task={task}
         isEditTask={isEditTask}
     /> : ''
