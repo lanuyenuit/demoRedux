@@ -8,6 +8,7 @@ export const listAll = () => {
 }
 
 export const addTask = (task) => {
+	console.log("add task")
 	return {
 		type: types.ADD_TASK,
 		task
@@ -15,8 +16,16 @@ export const addTask = (task) => {
 
 }
 
-export const deleteTask = () => {
+export const deleteTask = (id) => {
 	return {
-		type: types.DELETE_TASK
+		type: types.DELETE_TASK,
+		id
+	}
+}
+
+export const editTask = (id) => {
+	return {
+		type: types.EDIT_TASK,
+		id
 	}
 }

@@ -70,15 +70,15 @@ class App extends Component {
 
   //click them button or chinh sua button to save changes
   addTask = () => {
-    // let {tasks} = _.cloneDeep(this.state)
     let {task} = _.clone(this.state)
-    let {tasks, addTask} = this.props
+    let {tasks} = this.props.tasks
+    let {addTask} = this.props
 
     //save changes when add new
     if (!task.id) {
       task.id = Math.random().toString(16).substr(2, 9)
 
-      addTask(task)
+      tasks.push(task)
     }
 
     //save changes when edit
@@ -89,6 +89,8 @@ class App extends Component {
         }
       })
     }
+
+    addTask(task)
 
     this.setState({
       task: {
@@ -102,14 +104,14 @@ class App extends Component {
 
   //delete task
   deleteTask = (id) => {
-		// let {tasks} = _.cloneDeep(this.state)
-    let {tasks,deleteTask} = this.props
+		let {tasks} = this.props.tasks
+    let {deleteTask} = this.props
 
     _.remove(tasks, (task) => {
-      return task.id ===  id
+      return task.id === id
     })
-    deleteTask()
 
+    deleteTask(id)
   }
 
   //toggle form edit task
@@ -311,7 +313,7 @@ class App extends Component {
             <div className='row mt-15'>
               <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
                 <TaskList
-                  tasks={this.props.tasks}
+                  tasks={this.props.tasks.tasks}
                   deleteTask={(id)=>this.deleteTask(id)}
                   toggleEditForm={(id)=>this.toggleEditForm(id)}
                   filter={filter}
@@ -329,7 +331,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        tasks: state.tasks
+        ...state
     }
 }
 
@@ -340,9 +342,14 @@ const mapDispathToProps = (dispatch, props) => {
       dispatch(actions.addTask(task))
     },
 
-		deleteTask: () => {
-			dispatch(actions.deleteTask())
-		}
+		deleteTask: (id) => {
+			dispatch(actions.deleteTask(id))
+		},
+
+		editTask: (id) => {
+      dispatch(actions.editTask(id))
+    }
+
   }
 }
 
