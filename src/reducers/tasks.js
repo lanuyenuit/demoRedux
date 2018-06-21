@@ -1,5 +1,4 @@
 import * as types from './../constants/actionTypes'
-import _ from 'lodash'
 
 let initialState = {
   tasks : [

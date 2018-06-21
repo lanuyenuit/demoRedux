@@ -67,7 +67,7 @@ class TaskForm extends Component {
                 type='button'
                 className='btn btn-warning margin-right-5'
                 onClick={() => addTask()}
-                // value={task ? task.status : ''}
+                value={task ? task.status : ''}
               >
                 {nameEditButton}
               </button>

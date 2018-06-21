@@ -115,18 +115,22 @@ class App extends Component {
   }
 
   //toggle form edit task
-  toggleEditForm = (id) => {
-    let {tasks} = _.cloneDeep(this.state)
+  editTask = (id) => {
+    let {task} = _.clone(this.state)
+    let {tasks} = _.cloneDeep(this.props.tasks)
+    let {editTask} = this.props
 
-    let editTask = _.find(tasks, (task) => {
+    let tasksEdited = _.find(tasks, (task) => {
       return task.id === id
     })
 
     this.setState({
       isDisplayForm: true,
-      task: editTask,
+      task: tasksEdited,
       isEditTask: true
     })
+
+		editTask(id)
   }
 
   onFilter = (e, field ) => {
@@ -315,7 +319,7 @@ class App extends Component {
                 <TaskList
                   tasks={this.props.tasks.tasks}
                   deleteTask={(id)=>this.deleteTask(id)}
-                  toggleEditForm={(id)=>this.toggleEditForm(id)}
+                  editTask={(id)=>this.editTask(id)}
                   filter={filter}
                   onFilter={(e, field)=>this.onFilter(e, field)}
                   changeStatus={(id) => this.changeStatus(id)}

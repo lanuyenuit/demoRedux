@@ -6,7 +6,7 @@ import TaskItem from './TaskItem'
 class TaskList extends Component {
   render() {
     const {tasks} = _.cloneDeep(this.props)
-    const {deleteTask, toggleEditForm, filter, onFilter, changeStatus} = _.clone(this.props)
+    const {deleteTask, editTask, filter, onFilter, changeStatus} = _.clone(this.props)
 
     let elmTask = _.map(tasks, (task, index) => {
       return <TaskItem
@@ -14,7 +14,7 @@ class TaskList extends Component {
         index={index}
         task={task}
         deleteTask={()=>deleteTask(task.id)}
-        toggleEditForm={()=>toggleEditForm(task.id)}
+        editTask={()=>editTask(task.id)}
         changeStatus={() => changeStatus(task.id)}
       />
     })

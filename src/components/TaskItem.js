@@ -3,7 +3,7 @@ import _ from '../../node_modules/lodash'
 
 class TaskItem extends Component {
   render() {
-    let {task, index, deleteTask, toggleEditForm, changeStatus} = _.clone(this.props)
+    let {task, index, deleteTask, editTask, changeStatus} = _.clone(this.props)
 
     let statusStyle= task.status === "1" ?
         'label label-danger' : 'label label-success'
@@ -25,7 +25,7 @@ class TaskItem extends Component {
           <button
             type='button'
             className='btn btn-warning margin-right-5'
-            onClick={()=>toggleEditForm(task.id)}
+            onClick={()=>editTask(task.id)}
           >
             <span className='fa fa-pencil mr-5'>Sửa</span>
           </button>
