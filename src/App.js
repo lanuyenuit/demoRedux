@@ -72,17 +72,18 @@ class App extends Component {
   addTask = () => {
     // let {tasks} = _.cloneDeep(this.state)
     let {task} = _.clone(this.state)
+    let {tasks, addTask} = this.props
 
     //save changes when add new
     if (!task.id) {
       task.id = Math.random().toString(16).substr(2, 9)
 
-      this.props.addTask(task)
+      addTask(task)
     }
 
     //save changes when edit
     else {
-      _.forEach(this.props.tasks, (obj)=> {
+      _.forEach(tasks, (obj)=> {
         if (obj.id === task.id) {
           _.merge(obj, task)
         }
@@ -101,15 +102,14 @@ class App extends Component {
 
   //delete task
   deleteTask = (id) => {
-    let {tasks} = _.cloneDeep(this.state)
+		// let {tasks} = _.cloneDeep(this.state)
+    let {tasks,deleteTask} = this.props
 
     _.remove(tasks, (task) => {
       return task.id ===  id
     })
+    deleteTask()
 
-    this.setState({
-      tasks
-    })
   }
 
   //toggle form edit task
@@ -336,10 +336,15 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch, props) => {
   return {
-      addTask: (task) => {
-          dispatch(actions.addTask(task))
-      }
+    addTask: (task) => {
+      dispatch(actions.addTask(task))
+    },
+
+		deleteTask: () => {
+			dispatch(actions.deleteTask())
+		}
   }
 }
+
 
 export default connect(mapStateToProps, mapDispathToProps)(App)

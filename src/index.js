@@ -6,9 +6,15 @@ import registerServiceWorker from './registerServiceWorker';
 import { createStore } from 'redux'
 import myReducer from './reducers/index'
 import {Provider} from 'react-redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-let store = createStore(myReducer)
+const composeEnhancers = composeWithDevTools({
+	// Specify name here, actionsBlacklist, actionsCreators and other options if needed
+});
+const store = createStore(myReducer, /* preloadedState, */ composeEnhancers(
 
+		// other store enhancers if any
+));
 let tasks = [
   {
     id: 1,
